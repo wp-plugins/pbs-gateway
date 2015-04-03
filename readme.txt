@@ -4,7 +4,7 @@ Contributors: Omar Hasan
 Donate link: 
 Tags: woocommerce PBS, payment bills service, payment gateway, woocommerce, woocommerce payment gateway
 Requires at least:4.0
-Tested up to: 4.2
+Tested up to: 4.1.1
 Stable tag: 1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -33,7 +33,9 @@ Few features of this plugin:
 **Contact me for any Help you need to setup or need extra feature, just leave a comment** 
 [Contact omar4hasan@gmail.com]
    
-Contact [WordPress Tech Support].
+Contact [WordPress Tech Support](https://wordpress.org/support/plugin/pbs-gateway "Contact for Help") Page on our site.
+
+
 
 
 == Installation ==
