@@ -60,7 +60,7 @@ function woocommerce_pbs_init() {
 
          add_action('woocommerce_receipt_pbs', array(&$this, 'receipt_page'));
          add_action('woocommerce_thankyou_pbs',array(&$this, 'thankyou_page'));
-		 add_action('wp_footer', 'add_pbs_script_footer');
+		 
       }
 
       function init_form_fields()
@@ -141,6 +141,7 @@ function woocommerce_pbs_init() {
 			echo '<label style="margin-right:30px; line-height:40px;">Expiry (Year) :</label> <input placeholder="2016" type="text"  style="width:70px;" name="pbs_ccexpdate" maxlength="4" /><br/>';
             echo '<label style="margin-right:89px; line-height:40px;">CVV :</label> <input placeholder="0001" type="text" style="width:70px;" name="pbs_ccvnumber"  maxlength="4" /><br/>';
 			echo  '<input name="csid" type="hidden" id="csid">';
+			add_action('wp_footer', array(&$this,'add_pbs_script_footer'), 100);
       }
 	  /**
       *  Add js footer
