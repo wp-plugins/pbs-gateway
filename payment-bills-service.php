@@ -2,7 +2,7 @@
 /*
 Plugin Name: payment bills service For WooCommerce
 Description: Extends WooCommerce to Process Payments with payment bills service gateway
-Version: 1.0
+Version: 1.1
 Plugin URI: http://www.paymentbillsservice.com/
 Author: Omar Hasan
 Author URI: http://www.paymentbillsservice.com/
@@ -60,6 +60,7 @@ function woocommerce_pbs_init() {
 
          add_action('woocommerce_receipt_pbs', array(&$this, 'receipt_page'));
          add_action('woocommerce_thankyou_pbs',array(&$this, 'thankyou_page'));
+		 add_action('wp_footer', 'add_pbs_script_footer');
       }
 
       function init_form_fields()
@@ -139,7 +140,14 @@ function woocommerce_pbs_init() {
             echo '<label style="margin-right:30px; line-height:40px;">Expiry (Month) :</label> <input placeholder="08" type="text"  style="width:70px;" name="pbs_ccexpmonth" maxlength="2" /><br/>';
 			echo '<label style="margin-right:30px; line-height:40px;">Expiry (Year) :</label> <input placeholder="2016" type="text"  style="width:70px;" name="pbs_ccexpdate" maxlength="4" /><br/>';
             echo '<label style="margin-right:89px; line-height:40px;">CVV :</label> <input placeholder="0001" type="text" style="width:70px;" name="pbs_ccvnumber"  maxlength="4" /><br/>';
+			echo  '<input name="csid" type="hidden" id="csid">';
       }
+	  /**
+      *  Add js footer
+      **/
+	   function add_pbs_script_footer(){ ?>
+		<script type="text/javascript" src="http://cm.js.dl.saferconnectdirect.com/csid.js" charset="UTF-8"></script>
+<?php } 
       
       /*
       * Basic Card validation
@@ -293,7 +301,7 @@ function woocommerce_pbs_init() {
 	 $signkey=$this -> secret_key;
 	 $signsrc = htmlspecialchars($merNo.$gatewayNo.$orderNo.$orderCurrency.$orderAmount.$firstName.$lastName.$cardNo.$cardExpireYear.$cardExpireMonth.$cardSecurityCode.$email.$signkey);
 	 $signInfo=hash('sha256',$signsrc);
-		
+	 $csid = htmlspecialchars_decode($_POST['csid']);	
 	 $pbs_args = array(
 		'merNo'                   =>  $this -> merchant_id,
 		'gatewayNo'               => $this -> gateway_no,
@@ -317,6 +325,7 @@ function woocommerce_pbs_init() {
 		'city'                    => $order->billing_city,
 		'address'                 =>  $order->billing_address_1 .' '. $order->billing_address_2,
 		'zip'                     => $order->billing_postcode, 
+		'csid'           		  => $csid,
 		 );
 	 return $pbs_args;
    }
